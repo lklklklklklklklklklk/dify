@@ -44,7 +44,21 @@ class ComfyUiClient:
         ws.connect(ws_address)
         return ws, client_id
 
-    def set_prompt_by_ksampler(self, origin_prompt: dict, positive_prompt: str, negative_prompt: str = "") -> dict:
+    # def set_prompt_by_ksampler(self, origin_prompt: dict, positive_prompt: str, negative_prompt: str = "") -> dict:
+    #     prompt = origin_prompt.copy()
+    #     id_to_class_type = {id: details["class_type"] for id, details in prompt.items()}
+    #     k_sampler = [key for key, value in id_to_class_type.items() if value == "KSampler"][0]
+    #     prompt.get(k_sampler)["inputs"]["seed"] = random.randint(10**14, 10**15 - 1)
+    #     positive_input_id = prompt.get(k_sampler)["inputs"]["positive"][0]
+    #     prompt.get(positive_input_id)["inputs"]["text"] = positive_prompt
+
+    #     if negative_prompt != "":
+    #         negative_input_id = prompt.get(k_sampler)["inputs"]["negative"][0]
+    #         prompt.get(negative_input_id)["inputs"]["text"] = negative_prompt
+
+    #     return prompt
+
+    def set_prompt_by_ksampler(self, origin_prompt: dict, positive_prompt: str) -> dict:
         prompt = origin_prompt.copy()
         id_to_class_type = {id: details["class_type"] for id, details in prompt.items()}
         k_sampler = [key for key, value in id_to_class_type.items() if value == "KSampler"][0]
@@ -52,12 +66,8 @@ class ComfyUiClient:
         positive_input_id = prompt.get(k_sampler)["inputs"]["positive"][0]
         prompt.get(positive_input_id)["inputs"]["text"] = positive_prompt
 
-        if negative_prompt != "":
-            negative_input_id = prompt.get(k_sampler)["inputs"]["negative"][0]
-            prompt.get(negative_input_id)["inputs"]["text"] = negative_prompt
-
         return prompt
-
+    
     def set_prompt_images_by_ids(self, origin_prompt: dict, image_names: list[str], image_ids: list[str]) -> dict:
         prompt = origin_prompt.copy()
         for index, image_node_id in enumerate(image_ids):

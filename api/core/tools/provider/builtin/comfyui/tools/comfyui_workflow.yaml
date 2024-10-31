@@ -17,13 +17,6 @@ parameters:
       zh_Hans: 提示词
     llm_description: Image prompt, you should describe the image you want to generate as a list of words as possible as detailed, the prompt must be written in English.
     form: llm
-  - name: negative_prompt
-    type: string
-    label:
-      en_US: Negative Prompt
-      zh_Hans: 负面提示词
-    llm_description: Negative prompt, you should describe the image you don't want to generate as a list of words as possible as detailed, the prompt must be written in English.
-    form: llm
   - name: images
     type: files
     label:

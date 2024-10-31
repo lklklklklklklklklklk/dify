@@ -13,7 +13,7 @@ class ComfyUIWorkflowTool(BuiltinTool):
         comfyui = ComfyUiClient(self.runtime.credentials["base_url"])
 
         positive_prompt = tool_parameters.get("positive_prompt", "")
-        negative_prompt = tool_parameters.get("negative_prompt", "")
+        # negative_prompt = tool_parameters.get("negative_prompt", "")
         images = tool_parameters.get("images") or []
         workflow = tool_parameters.get("workflow_json")
         image_names = []
@@ -27,7 +27,7 @@ class ComfyUIWorkflowTool(BuiltinTool):
         if "{{positive_prompt}}" in workflow:
             set_prompt_with_ksampler = False
             workflow = workflow.replace("{{positive_prompt}}", positive_prompt)
-            workflow = workflow.replace("{{negative_prompt}}", negative_prompt)
+            # workflow = workflow.replace("{{negative_prompt}}", negative_prompt)
 
         try:
             prompt = json.loads(workflow)
@@ -36,7 +36,8 @@ class ComfyUIWorkflowTool(BuiltinTool):
 
         if set_prompt_with_ksampler:
             try:
-                prompt = comfyui.set_prompt_by_ksampler(prompt, positive_prompt, negative_prompt)
+                # prompt = comfyui.set_prompt_by_ksampler(prompt, positive_prompt, negative_prompt)
+                prompt = comfyui.set_prompt_by_ksampler(prompt, positive_prompt)
             except:
                 raise ToolParameterValidationError(
                     "Failed set prompt with KSampler, try replace prompt to {{positive_prompt}} in your workflow json"

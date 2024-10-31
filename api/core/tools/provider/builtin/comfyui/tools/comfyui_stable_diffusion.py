@@ -60,7 +60,7 @@ class ComfyuiStableDiffusionTool(BuiltinTool):
             return self.create_text_message("Please input prompt")
 
         # get negative prompt
-        negative_prompt = tool_parameters.get("negative_prompt", "")
+        # negative_prompt = tool_parameters.get("negative_prompt", "")
 
         # get size
         width = tool_parameters.get("width", 1024)
@@ -100,7 +100,7 @@ class ComfyuiStableDiffusionTool(BuiltinTool):
             model=model,
             model_type=model_type,
             prompt=prompt,
-            negative_prompt=negative_prompt,
+            # negative_prompt=negative_prompt,
             width=width,
             height=height,
             steps=steps,
@@ -259,7 +259,7 @@ class ComfyuiStableDiffusionTool(BuiltinTool):
         model: str,
         model_type: str,
         prompt: str,
-        negative_prompt: str,
+        # negative_prompt: str,
         width: int,
         height: int,
         steps: int,
@@ -288,7 +288,7 @@ class ComfyuiStableDiffusionTool(BuiltinTool):
         draw_options["5"]["inputs"]["width"] = width
         draw_options["5"]["inputs"]["height"] = height
         draw_options["6"]["inputs"]["text"] = prompt
-        draw_options["7"]["inputs"]["text"] = negative_prompt
+        # draw_options["7"]["inputs"]["text"] = negative_prompt
         # if the model is SD3 or FLUX series, the Latent class should be corresponding to SD3 Latent
         if model_type in {ModelType.SD3.name, ModelType.FLUX.name}:
             draw_options["5"]["class_type"] = "EmptySD3LatentImage"
@@ -298,7 +298,7 @@ class ComfyuiStableDiffusionTool(BuiltinTool):
             draw_options["3"]["inputs"]["model"][0] = "10"
             # last Lora node link to positive and negative Clip node
             draw_options["6"]["inputs"]["clip"][0] = "10"
-            draw_options["7"]["inputs"]["clip"][0] = "10"
+            # draw_options["7"]["inputs"]["clip"][0] = "10"
             # every Lora node link to next Lora node, and Checkpoints node link to first Lora node
             for i, (lora, strength) in enumerate(zip(lora_list, lora_strength_list), 10):
                 if i - 10 == len(lora_list) - 1:
